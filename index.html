@@ -217,14 +217,20 @@
     word-break:break-word;
     hyphens:auto;
   }
+  .hero h1 .h1-lead{
+    display:block;
+    font-size:0.5em;
+  }
   .hero h1 em{
+    display:block;
+    font-size:0.42em;
     font-style:normal;
     color:var(--accent);
   }
   .hero-sub{
     margin-top:26px;
     max-width:56ch;
-    font-size:18px;
+    font-size:clamp(11px,2.73vw,26px);
     color:#D5D5D5;
   }
   .hero-actions{
@@ -737,7 +743,7 @@
 
     <div class="wrap hero-inner">
       <div class="eyebrow">Mind Planet — Programa Wild Ones</div>
-      <h1>Cine de campo. <em>Explorar. Descubrir. Contar.</em></h1>
+      <h1><span class="h1-lead">Cine de campo.</span> <em>Explorar. Descubrir. Contar.</em></h1>
       <p class="hero-sub">Mind Planet filma donde la ciencia todavía está tomando notas: cuevas, arrecifes de roca, páramos y nevados.</p>
       <div class="hero-actions">
         <a class="btn btn-solid" href="#proyectos">Ver Wild Ones</a>
