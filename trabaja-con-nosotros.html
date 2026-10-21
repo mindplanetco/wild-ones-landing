@@ -1,0 +1,357 @@
+<meta charset="UTF-8">
+<title>Trabaja con nosotros — Mind Planet</title>
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --bg-alt:#F3F3F1;
+    --card:#F7F7F5;
+    --card-hover:#ECECE8;
+    --line:rgba(0,0,0,0.14);
+    --line-soft:rgba(0,0,0,0.08);
+    --text:#0A0A0A;
+    --text-dim:#545454;
+    --text-mute:#767676;
+    --accent:#B0B0B0;
+    --display:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,Arial,sans-serif;
+    --body:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html{color-scheme:light;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--accent);color:#0A0A0A;}
+  a{color:inherit;}
+  img{max-width:100%;}
+
+  h1,h2,h3{
+    font-family:var(--display);
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+    text-wrap:balance;
+    margin:0;
+  }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--text-mute);
+  }
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding-inline:24px;
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky;
+    top:env(safe-area-inset-top,0px);
+    z-index:50;
+    background:rgba(255,255,255,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .nav-inner{
+    max-width:1180px;
+    margin:0 auto;
+    padding:16px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+  }
+  .logo{
+    font-family:var(--display);
+    font-weight:900;
+    font-size:22px;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--text);
+    white-space:nowrap;
+  }
+  .logo span{color:var(--accent);}
+  .back-link{
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:0.04em;
+    text-decoration:none;
+    color:var(--text-dim);
+    white-space:nowrap;
+  }
+  .back-link:hover{color:var(--accent);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:84px 0 56px;
+    border-bottom:1px solid var(--line-soft);
+    background:var(--bg-alt);
+  }
+  .hero h1{
+    margin-top:18px;
+    font-size:clamp(30px,5.4vw,52px);
+    line-height:1.08;
+    max-width:20ch;
+  }
+  .hero h1 em{color:var(--accent);font-style:normal;}
+  .hero p{
+    margin-top:22px;
+    max-width:60ch;
+    font-size:17px;
+    color:var(--text-dim);
+  }
+
+  section{padding:72px 0;}
+
+  /* ---------- ÁREAS ---------- */
+  .areas-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+    margin-bottom:8px;
+  }
+  .area-card{
+    border-top:2px solid var(--accent);
+    padding-top:16px;
+  }
+  .area-card h3{
+    font-family:var(--display);
+    font-weight:800;
+    text-transform:uppercase;
+    font-size:16px;
+    margin-bottom:8px;
+  }
+  .area-card p{margin:0;color:var(--text-dim);font-size:14px;max-width:34ch;}
+
+  /* ---------- PREVIEW BANNER ---------- */
+  .preview-note{
+    margin-top:40px;
+    padding:18px 22px;
+    background:#F5F5F5;
+    border:1px solid rgba(176,176,176,0.4);
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+  }
+  .preview-note .dot{flex:none;width:9px;height:9px;border-radius:50%;background:var(--accent);margin-top:6px;}
+  .preview-note p{margin:0;font-size:13.5px;color:var(--text-dim);max-width:62ch;}
+  .preview-note p strong{color:var(--text);}
+
+  /* ---------- FORM ---------- */
+  .apply-head{margin-bottom:32px;}
+  .apply-head h2{font-size:clamp(24px,3.6vw,32px);}
+  .apply-head p{margin-top:12px;color:var(--text-dim);font-size:15px;max-width:60ch;}
+  .apply-form{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px 24px;
+    max-width:760px;
+  }
+  .field{display:flex;flex-direction:column;gap:8px;}
+  .field.full{grid-column:1 / -1;}
+  .field label{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--text-mute);
+  }
+  .field input,
+  .field select,
+  .field textarea{
+    font-family:var(--body);
+    font-size:15px;
+    color:var(--text);
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:2px;
+    padding:12px 14px;
+    width:100%;
+  }
+  .field textarea{resize:vertical;min-height:96px;}
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  .apply-fine{
+    grid-column:1 / -1;
+    margin-top:4px;
+    font-size:12.5px;
+    color:var(--text-mute);
+    max-width:60ch;
+  }
+  .apply-submit{grid-column:1 / -1;}
+  .btn{
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    text-decoration:none;
+    padding:13px 22px;
+    border-radius:2px;
+    display:inline-block;
+    text-align:center;
+    border:none;
+    cursor:pointer;
+    transition:transform .18s ease, background .18s ease, border-color .18s ease;
+  }
+  .btn-solid{background:var(--accent);color:#0A0A0A;font-weight:600;}
+  .btn-solid:hover{transform:translateY(-2px);}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:56px 0 40px;background:var(--bg-alt);border-top:1px solid var(--line-soft);}
+  .foot-inner{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .foot-inner a{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text-dim);
+    text-decoration:none;
+  }
+  .foot-inner a:hover{color:var(--accent);}
+  .foot-bottom{
+    margin-top:24px;
+    padding-top:20px;
+    border-top:1px solid var(--line-soft);
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--text-mute);
+  }
+
+  @media (max-width:860px){
+    .areas-grid{grid-template-columns:1fr 1fr;}
+    .apply-form{grid-template-columns:1fr;}
+    section{padding:56px 0;}
+    .hero{padding:56px 0 44px;}
+  }
+  @media (max-width:480px){
+    .areas-grid{grid-template-columns:1fr;}
+  }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">MIND<span>·</span>PLANET</a>
+    <a class="back-link" href="index.html">← Volver al sitio</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Mind Planet — Trabaja con nosotros</div>
+      <h1>Súmate al equipo que filma donde <em>la ciencia</em> todavía trabaja.</h1>
+      <p>Wild Ones crece con gente de campo: producción, cámara, sonido, edición e investigación. Si tu trabajo encaja con eso, cuéntanos quién eres.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="areas-grid">
+        <div class="area-card">
+          <h3>Producción de campo</h3>
+          <p>Logística de expedición, coordinación con instituciones científicas, permisos.</p>
+        </div>
+        <div class="area-card">
+          <h3>Cámara y fotografía</h3>
+          <p>Cine de naturaleza, espeleología, retrato documental en terreno difícil.</p>
+        </div>
+        <div class="area-card">
+          <h3>Sonido</h3>
+          <p>Grabación en campo, diseño sonoro, paisaje sonoro de territorios remotos.</p>
+        </div>
+        <div class="area-card">
+          <h3>Edición y postproducción</h3>
+          <p>Montaje documental, color, DI.</p>
+        </div>
+        <div class="area-card">
+          <h3>Investigación científica</h3>
+          <p>Biología, geología, antropología — puente entre el equipo de cine y el territorio.</p>
+        </div>
+        <div class="area-card">
+          <h3>Comunicación y redes</h3>
+          <p>Contar lo que pasa en campo mientras pasa.</p>
+        </div>
+      </div>
+
+      <div class="preview-note">
+        <span class="dot"></span>
+        <p><strong>Esto es una vista previa del diseño.</strong> El formulario de abajo todavía no está conectado a ningún lado — en la versión final va a ser un Google Form embebido aquí mismo, con las respuestas cayendo directo a una hoja de cálculo en tu Drive (tu base de datos de candidatos). Falta un paso tuyo para activarlo — te explico abajo cuál.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="postular">
+    <div class="wrap">
+      <div class="apply-head">
+        <h2>Cuéntanos quién eres</h2>
+        <p>Así se vería el formulario — mismos campos que tendrá el Google Form real.</p>
+      </div>
+      <form class="apply-form" onsubmit="return false;">
+        <div class="field full">
+          <label for="t-nombre">Nombre completo</label>
+          <input type="text" id="t-nombre" name="Nombre" required>
+        </div>
+        <div class="field full">
+          <label for="t-correo">Correo de contacto</label>
+          <input type="email" id="t-correo" name="Correo" required>
+        </div>
+        <div class="field full">
+          <label for="t-area">¿En qué área quieres sumarte?</label>
+          <select id="t-area" name="Área">
+            <option>Producción de campo</option>
+            <option>Cámara y fotografía</option>
+            <option>Sonido</option>
+            <option>Edición y postproducción</option>
+            <option>Investigación científica</option>
+            <option>Comunicación y redes</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="t-portafolio">Enlace a tu portafolio, reel o CV</label>
+          <input type="url" id="t-portafolio" name="Portafolio" placeholder="https://...">
+        </div>
+        <div class="field full">
+          <label for="t-mensaje">Cuéntanos por qué quieres sumarte</label>
+          <textarea id="t-mensaje" name="Mensaje" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-solid apply-submit">Enviar postulación</button>
+      </form>
+    </div>
+  </section>
+
+  <footer id="contacto">
+    <div class="wrap">
+      <div class="foot-inner">
+        <span class="eyebrow" style="margin:0;">Mind Planet — Trabaja con nosotros</span>
+        <a href="mailto:director@mindplanet.co">director@mindplanet.co</a>
+      </div>
+      <div class="foot-bottom">
+        © 2026 Mind Planet. Vista previa — formulario pendiente de conectar.
+      </div>
+    </div>
+  </footer>
+</main>

@@ -1,27 +1,29 @@
+<meta charset="UTF-8">
 <title>Mind Planet</title>
 <style>
   :root{
-    --bg:#0A0A0A;
-    --bg-alt:#161616;
-    --card:#1C1C1C;
-    --card-hover:#262626;
-    --line:rgba(255,255,255,0.14);
-    --line-soft:rgba(255,255,255,0.08);
-    --text:#FFFFFF;
-    --text-dim:#B8B8B8;
-    --text-mute:#7A7A7A;
-    --accent:#FF5A00;
+    --bg:#FFFFFF;
+    --bg-alt:#F3F3F1;
+    --card:#F7F7F5;
+    --card-hover:#ECECE8;
+    --line:rgba(0,0,0,0.14);
+    --line-soft:rgba(0,0,0,0.08);
+    --text:#0A0A0A;
+    --text-dim:#545454;
+    --text-mute:#767676;
+    --accent:#B0B0B0;
     --accent-cave:#1C1C1C;
     --accent-sky:#2A2A2A;
     --accent-rupestre:#383838;
     --accent-ice:#D9D9D9;
+    --hero-bg:#0A0A0A;
     --display:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,Arial,sans-serif;
     --body:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,Helvetica,Arial,sans-serif;
     --mono:'JetBrains Mono',ui-monospace,monospace;
   }
 
   *{box-sizing:border-box;}
-  html{color-scheme:dark;}
+  html{color-scheme:light;}
   body{
     margin:0;
     background:var(--bg);
@@ -65,11 +67,12 @@
     position:sticky;
     top:env(safe-area-inset-top,0px);
     z-index:50;
-    background:rgba(18,18,18,0.86);
+    background:rgba(255,255,255,0.86);
     backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line-soft);
   }
   .nav-inner{
+    position:relative;
     max-width:1180px;
     margin:0 auto;
     padding:16px 24px;
@@ -78,6 +81,26 @@
     justify-content:space-between;
     gap:16px;
   }
+  .nav-toggle{
+    display:none;
+    width:36px;height:36px;
+    flex:none;
+    border:none;background:none;padding:0;margin:0;
+    cursor:pointer;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:5px;
+  }
+  .nav-toggle span{
+    display:block;
+    width:22px;height:2px;
+    background:var(--text);
+    transition:transform .25s ease, opacity .25s ease;
+  }
+  .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .nav-toggle.open span:nth-child(2){opacity:0;}
+  .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
   .logo{
     font-family:var(--display);
     font-weight:900;
@@ -126,9 +149,9 @@
     position:relative;
     padding:86px 0 70px;
     background:
-      radial-gradient(ellipse at 18% 0%, rgba(255,90,0,0.16), transparent 55%),
+      radial-gradient(ellipse at 18% 0%, rgba(176,176,176,0.16), transparent 55%),
       radial-gradient(ellipse at 82% 30%, rgba(157,167,179,0.10), transparent 50%),
-      var(--bg);
+      var(--hero-bg);
     overflow:hidden;
     border-bottom:1px solid var(--line-soft);
   }
@@ -143,18 +166,16 @@
     pointer-events:none;
   }
 
-  /* jump-cut reel placeholder — swap for a real <video> once footage exists */
-  .reel{position:absolute;inset:0;overflow:hidden;}
-  .reel-frame{
+  /* hero background video */
+  .hero-video-wrap{position:absolute;inset:0;overflow:hidden;background:var(--hero-bg);}
+  .hero-video{
     position:absolute;inset:0;
-    opacity:0;
-    background:linear-gradient(180deg, transparent 0%, var(--bg) 92%), var(--tone,var(--accent));
+    width:100%;height:100%;
+    object-fit:cover;
   }
-  .reel-frame.active{opacity:1;}
-  .reel-frame svg{position:absolute;bottom:-2%;left:0;width:100%;height:72%;}
   .reel-overlay{
     position:absolute;inset:0;
-    background:linear-gradient(180deg, rgba(18,18,18,0.35) 0%, var(--bg) 96%);
+    background:linear-gradient(180deg, rgba(10,10,10,0.38) 0%, rgba(10,10,10,0.55) 60%, var(--hero-bg) 97%);
   }
   .reel-tag{
     position:absolute;
@@ -165,28 +186,28 @@
     font-size:11px;
     letter-spacing:0.1em;
     text-transform:uppercase;
-    color:var(--text-dim);
+    color:#D5D5D5;
   }
   .reel-tag .dot{
     width:7px;height:7px;border-radius:50%;
     background:var(--accent);
-    box-shadow:0 0 0 0 rgba(255,90,0,0.6);
+    box-shadow:0 0 0 0 rgba(176,176,176,0.6);
     animation:pulse 1.8s infinite;
   }
   @keyframes pulse{
-    0%{box-shadow:0 0 0 0 rgba(255,90,0,0.45);}
-    70%{box-shadow:0 0 0 8px rgba(255,90,0,0);}
-    100%{box-shadow:0 0 0 0 rgba(255,90,0,0);}
+    0%{box-shadow:0 0 0 0 rgba(176,176,176,0.45);}
+    70%{box-shadow:0 0 0 8px rgba(176,176,176,0);}
+    100%{box-shadow:0 0 0 0 rgba(176,176,176,0);}
   }
   @media (prefers-reduced-motion: reduce){
     .reel-tag .dot{animation:none;}
   }
-  .hero-inner{position:relative;z-index:2;}
-  .hero .eyebrow{margin-bottom:18px;}
+  .hero-inner{position:relative;z-index:2;color:#FFFFFF;}
+  .hero .eyebrow{margin-bottom:18px;color:#C7C7C7;}
   .hero h1{
-    font-size:clamp(32px,9vw,84px);
-    line-height:1.04;
-    max-width:15ch;
+    font-size:clamp(26px,6.5vw,62px);
+    line-height:1.06;
+    max-width:19ch;
     overflow-wrap:break-word;
     word-break:break-word;
     hyphens:auto;
@@ -199,7 +220,7 @@
     margin-top:26px;
     max-width:56ch;
     font-size:18px;
-    color:var(--text-dim);
+    color:#D5D5D5;
   }
   .hero-actions{
     margin-top:36px;
@@ -220,7 +241,7 @@
   }
   .btn-solid{background:var(--accent);color:#0A0A0A;font-weight:600;}
   .btn-solid:hover{transform:translateY(-2px);}
-  .btn-outline{border:1px solid var(--line);color:var(--text);}
+  .btn-outline{border:1px solid rgba(255,255,255,0.35);color:#FFFFFF;}
   .btn-outline:hover{border-color:var(--accent);color:var(--accent);}
 
   /* stat / field-log strip */
@@ -233,7 +254,7 @@
     margin:0 auto;
     padding:22px 24px;
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(2,1fr);
     gap:18px;
   }
   .stat{font-family:var(--mono);}
@@ -309,7 +330,7 @@
     font-size:10.5px;
     letter-spacing:0.1em;
     text-transform:uppercase;
-    color:var(--text);
+    color:#FFFFFF;
     background:rgba(18,18,18,0.75);
     backdrop-filter:blur(3px);
     padding:4px 8px;
@@ -325,17 +346,17 @@
   .poster-body .format{
     font-family:var(--mono);
     font-size:10.5px;
-    color:var(--text-dim);
+    color:#CFCFCF;
     text-transform:uppercase;
     letter-spacing:0.09em;
   }
   .poster-body h3{
     font-size:22px;
     line-height:1.02;
-    color:var(--text);
+    color:#FFFFFF;
   }
   .poster-body p{
-    color:var(--text-dim);
+    color:#D2D2D2;
     font-size:12px;
     line-height:1.4;
     margin:2px 0 0;
@@ -350,7 +371,7 @@
     font-size:10px;
     letter-spacing:0.06em;
     text-transform:uppercase;
-    color:var(--text-mute);
+    color:#A8A8A8;
   }
   .poster-status b{color:var(--accent);font-weight:600;}
   .project{cursor:pointer;}
@@ -392,7 +413,7 @@
     display:flex;align-items:center;justify-content:center;
     background:rgba(18,18,18,0.75);
     border:1px solid rgba(255,255,255,0.14);
-    color:var(--text);
+    color:#FFFFFF;
     font-size:20px;line-height:1;
     cursor:pointer;
   }
@@ -512,7 +533,7 @@
   /* citizen science */
   .citizen{
     background:
-      radial-gradient(ellipse at 88% 10%, rgba(255,90,0,0.12), transparent 45%),
+      radial-gradient(ellipse at 88% 10%, rgba(176,176,176,0.12), transparent 45%),
       var(--bg);
     border-bottom:1px solid var(--line-soft);
   }
@@ -623,8 +644,33 @@
     .reveal{opacity:1;transform:none;transition:none;}
   }
 
+  @media (max-width:1024px){
+    .projects-grid{grid-template-columns:repeat(2,1fr);}
+    .mission-grid{grid-template-columns:1fr;gap:28px;}
+    .contact-grid{grid-template-columns:1fr;gap:32px;}
+  }
+
   @media (max-width:860px){
-    nav.links{display:none;}
+    nav.links{
+      display:none;
+      position:absolute;
+      top:100%;left:0;right:0;
+      flex-direction:column;
+      gap:0;
+      background:rgba(255,255,255,0.98);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--line-soft);
+      padding:4px 24px 14px;
+      box-shadow:0 12px 24px rgba(0,0,0,0.08);
+    }
+    nav.links.open{display:flex;}
+    nav.links a{
+      padding:13px 0;
+      border-bottom:1px solid var(--line-soft);
+      font-size:14px;
+    }
+    nav.links a:last-child{border-bottom:none;}
+    .nav-toggle{display:flex;}
     .strip-inner{grid-template-columns:repeat(2,1fr);}
     .projects-grid{grid-template-columns:repeat(2,1fr);}
     .mission-grid{grid-template-columns:1fr;gap:28px;}
@@ -634,6 +680,16 @@
     .citizen-cta{flex-direction:column;align-items:flex-start;}
     .contact-grid{grid-template-columns:1fr;}
     section{padding:64px 0;}
+  }
+
+  @media (max-width:480px){
+    .projects-grid{grid-template-columns:1fr;}
+  }
+
+  @media (max-width:400px){
+    .nav-inner{padding:16px 16px;gap:8px;}
+    .collection-tag{margin-left:6px;padding:3px 6px;font-size:10px;}
+    .logo{font-size:19px;}
   }
 </style>
 
@@ -647,13 +703,16 @@
       <a class="logo" href="#top">MIND<span>·</span>PLANET</a>
       <span class="collection-tag">Wild Ones</span>
     </div>
-    <nav class="links">
+    <nav class="links" id="navLinks">
       <a href="#proyectos">Wild Ones</a>
-      <a href="#mision">Misión</a>
+      <a href="#mision">Nuestro compromiso</a>
       <a href="#aliados">Aliados</a>
       <a href="#ciencia-ciudadana">Participa</a>
       <a href="#contacto">Contacto</a>
     </nav>
+    <button type="button" class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 
@@ -661,49 +720,29 @@
   <section class="hero">
     <div class="contours" aria-hidden="true"></div>
 
-    <!--
-      REEL PLACEHOLDER: cuatro cortes abstractos en jump-cut, uno por producción.
-      Cuando tengas el video real, reemplaza este bloque .reel por:
-      <video class="hero-video" autoplay muted loop playsinline poster="reel-poster.jpg">
+    <div class="hero-video-wrap" aria-hidden="true">
+      <video class="hero-video" autoplay muted loop playsinline>
         <source src="wild-ones-reel.mp4" type="video/mp4">
       </video>
-      (sube el .mp4 junto al sitio al hacer deploy; comprímelo a ~15-25MB, formato H.264,
-      16:9 horizontal o 9:16 si el corte final es vertical).
-    -->
-    <div class="reel" aria-hidden="true" id="heroReel">
-      <div class="reel-frame active" style="--tone:var(--accent-cave)">
-        <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMax slice"><path d="M0,200 L0,120 Q100,60 160,110 Q220,150 260,90 Q320,20 400,80 L400,200 Z" fill="rgba(0,0,0,0.5)"/></svg>
-      </div>
-      <div class="reel-frame" style="--tone:var(--accent-sky)">
-        <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMax slice"><path d="M0,200 L0,140 L90,40 L140,110 L190,10 L250,120 L310,60 L400,150 L400,200 Z" fill="rgba(0,0,0,0.5)"/></svg>
-      </div>
-      <div class="reel-frame" style="--tone:var(--accent-rupestre)">
-        <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMax slice"><g stroke="rgba(0,0,0,0.5)" stroke-width="10"><line x1="20" y1="200" x2="60" y2="70"/><line x1="90" y1="200" x2="110" y2="90"/><line x1="150" y1="200" x2="130" y2="60"/><line x1="220" y1="200" x2="260" y2="80"/><line x1="300" y1="200" x2="270" y2="95"/><line x1="360" y1="200" x2="390" y2="75"/></g></svg>
-      </div>
-      <div class="reel-frame" style="--tone:var(--accent-ice)">
-        <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMax slice"><path d="M0,200 L0,150 L60,150 L80,90 L120,150 L200,150 L230,60 L270,150 L400,150 L400,200 Z" fill="rgba(0,0,0,0.35)"/></svg>
-      </div>
     </div>
     <div class="reel-overlay" aria-hidden="true"></div>
     <div class="reel-tag"><span class="dot"></span>Reel — Wild Ones (vista previa)</div>
 
     <div class="wrap hero-inner">
       <div class="eyebrow">Mind Planet — Programa Wild Ones</div>
-      <h1>Cine de campo para <em>reconciliarnos</em> con la tierra.</h1>
-      <p class="hero-sub">Mind Planet filma donde la ciencia todavía está tomando notas: cuevas, arrecifes de roca, páramos y nevados. <strong style="color:var(--text)">Wild Ones</strong> es nuestro programa permanente de documentación de campo — hoy incluye tres documentales y una ficción, y sigue creciendo junto a instituciones que llevan décadas estudiando estos territorios.</p>
+      <h1>Cine de campo. <em>Explorar. Descubrir. Contar.</em></h1>
+      <p class="hero-sub">Mind Planet filma donde la ciencia todavía está tomando notas: cuevas, arrecifes de roca, páramos y nevados.</p>
       <div class="hero-actions">
         <a class="btn btn-solid" href="#proyectos">Ver Wild Ones</a>
-        <a class="btn btn-outline" href="#mision">Nuestra misión</a>
+        <a class="btn btn-outline" href="#mision">Nuestro compromiso</a>
       </div>
     </div>
   </section>
 
   <div class="strip">
     <div class="strip-inner">
-      <div class="stat"><b>04</b><small>Producciones en curso</small></div>
-      <div class="stat"><b>03</b><small>Documentales</small></div>
-      <div class="stat"><b>01</b><small>Ficción de altura</small></div>
-      <div class="stat"><b>03</b><small>Aliados institucionales</small></div>
+      <div class="stat"><b>4</b><small>Producciones en curso</small></div>
+      <div class="stat"><b>50+</b><small>Expediciones</small></div>
     </div>
   </div>
 
@@ -726,7 +765,6 @@
             <span class="format">Documental</span>
             <h3>Andes Cavernícolas</h3>
             <p>Un equipo de espeleólogos y científicos desciende a las entrañas de la montaña para registrar ecosistemas únicos y las huellas de quienes habitaron estas cuevas antes que nosotros.</p>
-            <span class="poster-status">Estado: <b>En producción</b></span>
           </div>
         </article>
 
@@ -745,7 +783,6 @@
             <span class="format">Aventura · Drama · Cine de realidad</span>
             <h3>Con los Pies en el Cielo</h3>
             <p>Roy sube solo a un nevado para cumplir una promesa a su madre fallecida: llevarla a conocer la nieve. Un accidente y el encuentro con Ros, su única guía, lo obligan a soltar el control.</p>
-            <span class="poster-status">Duración: <b>95–110 min</b></span>
           </div>
         </article>
 
@@ -774,7 +811,6 @@
             <span class="format">Cortometraje documental</span>
             <h3>Mensajes en la Piedra</h3>
             <p>En la Serranía de la Macarena, un equipo de cine e investigación sigue las pictografías milenarias de quienes habitaron ese territorio — un acercamiento hermenéutico al arte rupestre amazónico.</p>
-            <span class="poster-status">Dir. <b>Roger Giraldo Lovera</b></span>
           </div>
         </article>
 
@@ -801,7 +837,6 @@
             <span class="format">Documental</span>
             <h3>La Última Cueva de Hielo</h3>
             <p>En la Sierra Nevada del Cocuy, donde el hielo retrocede 25 metros cada año, una expedición busca la última cueva de hielo para documentar la vida microscópica que el glaciar guardó durante siglos.</p>
-            <span class="poster-status">Retroceso glaciar: <b>-25 m/año</b></span>
           </div>
         </article>
       </div>
@@ -812,9 +847,7 @@
     <div class="wrap mission-grid">
       <h2 class="reveal">Ciencia<br>delante de<br>cámara.</h2>
       <div class="mission-copy reveal">
-        <p><strong>Mind Planet</strong> nace de una idea simple: el cine puede ser tan riguroso como un informe científico y tan conmovedor como cualquier historia. <strong>Wild Ones</strong> es nuestra división de documentación permanente — no un compilado cerrado, sino un programa en marcha que sigue sumando historias. No narramos la naturaleza desde afuera: filmamos junto a quienes la estudian todos los días.</p>
-        <p>Cada producción combina <strong>investigación de campo real</strong> con lenguaje cinematográfico: expediciones a cuevas, arrecifes rocosos, sitios arqueológicos y glaciares en retroceso, documentadas con el mismo cuidado que exige la evidencia científica.</p>
-        <p>Creemos en un cine que no observa la naturaleza desde la distancia, sino que se reconcilia con ella — y que puede acercar a un público amplio a territorios que la mayoría nunca podrá pisar.</p>
+        <p><strong>Nuestro compromiso:</strong> filmar con el rigor que exige la ciencia, y el cuidado que merece la tierra. No narramos la naturaleza desde afuera — trabajamos junto a quienes la estudian, cueva adentro, páramo adentro, hielo adentro.</p>
       </div>
     </div>
   </section>
@@ -844,7 +877,7 @@
   <section id="ciencia-ciudadana" class="citizen">
     <div class="wrap">
       <div class="section-head reveal">
-        <h2>Ciencia ciudadana</h2>
+        <h2>Campamento abierto</h2>
         <p>Cada expedición de Wild Ones lleva un equipo científico real. Ahora la audiencia también puede subirse al campamento.</p>
       </div>
       <p class="citizen-intro reveal">Siguiendo un modelo que ya usan operadoras como Exodus Travels con <strong>iNaturalist</strong>, algunas salidas de campo de Wild Ones abrirán cupos para que un grupo pequeño de personas — sin formación científica previa — acompañe al equipo, documente especies y aporte observaciones reales a las bases de datos de nuestros aliados institucionales.</p>
@@ -869,7 +902,7 @@
 
       <div class="citizen-cta reveal">
         <p><strong>Primeros cupos abren pronto.</strong> Escríbenos si quieres que te avisemos apenas se confirme la primera salida.</p>
-        <a class="btn btn-solid" href="mailto:director@mindplanet.com?subject=Quiero%20sumarme%20a%20una%20expedici%C3%B3n%20de%20ciencia%20ciudadana">Quiero postularme</a>
+        <a class="btn btn-solid" href="mailto:director@mindplanet.co?subject=Quiero%20sumarme%20a%20una%20expedici%C3%B3n%20de%20ciencia%20ciudadana">Quiero postularme</a>
       </div>
     </div>
   </section>
@@ -881,11 +914,16 @@
         <div class="contact-links">
           <div>
             <span class="label">Contacto</span>
-            <a href="mailto:director@mindplanet.com">director@mindplanet.com</a>
+            <a href="mailto:director@mindplanet.co">director@mindplanet.co</a>
           </div>
           <div>
             <span class="label">Sede</span>
             <span style="color:var(--text-dim)">Colombia</span>
+          </div>
+          <div>
+            <span class="label">Súmate</span>
+            <a href="apoya.html">Apoya este programa</a><br>
+            <a href="trabaja-con-nosotros.html">Trabaja con nosotros</a>
           </div>
         </div>
       </div>
@@ -914,16 +952,28 @@
 <script>
   (function(){
     try{
-      var reel = document.getElementById('heroReel');
-      var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if(reel && !reduced){
-        var frames = reel.querySelectorAll('.reel-frame');
-        var i = 0;
-        setInterval(function(){
-          frames[i].classList.remove('active');
-          i = (i + 1) % frames.length;
-          frames[i].classList.add('active');
-        }, 1100);
+      var navToggle = document.getElementById('navToggle');
+      var navLinks = document.getElementById('navLinks');
+      if(navToggle && navLinks){
+        navToggle.addEventListener('click', function(){
+          var isOpen = navLinks.classList.toggle('open');
+          navToggle.classList.toggle('open', isOpen);
+          navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+        navLinks.querySelectorAll('a').forEach(function(a){
+          a.addEventListener('click', function(){
+            navLinks.classList.remove('open');
+            navToggle.classList.remove('open');
+            navToggle.setAttribute('aria-expanded', 'false');
+          });
+        });
+        document.addEventListener('keydown', function(e){
+          if(e.key === 'Escape'){
+            navLinks.classList.remove('open');
+            navToggle.classList.remove('open');
+            navToggle.setAttribute('aria-expanded', 'false');
+          }
+        });
       }
     }catch(e){}
 

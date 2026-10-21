@@ -1,0 +1,425 @@
+<meta charset="UTF-8">
+<title>Apoya — Mind Planet</title>
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --bg-alt:#F3F3F1;
+    --card:#F7F7F5;
+    --card-hover:#ECECE8;
+    --line:rgba(0,0,0,0.14);
+    --line-soft:rgba(0,0,0,0.08);
+    --text:#0A0A0A;
+    --text-dim:#545454;
+    --text-mute:#767676;
+    --accent:#B0B0B0;
+    --display:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,Arial,sans-serif;
+    --body:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html{color-scheme:light;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--accent);color:#0A0A0A;}
+  a{color:inherit;}
+  img{max-width:100%;}
+
+  h1,h2,h3{
+    font-family:var(--display);
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+    text-wrap:balance;
+    margin:0;
+  }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--text-mute);
+  }
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding-inline:24px;
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky;
+    top:env(safe-area-inset-top,0px);
+    z-index:50;
+    background:rgba(255,255,255,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .nav-inner{
+    max-width:1180px;
+    margin:0 auto;
+    padding:16px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+  }
+  .logo{
+    font-family:var(--display);
+    font-weight:900;
+    font-size:22px;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--text);
+    white-space:nowrap;
+  }
+  .logo span{color:var(--accent);}
+  .back-link{
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:0.04em;
+    text-decoration:none;
+    color:var(--text-dim);
+    white-space:nowrap;
+  }
+  .back-link:hover{color:var(--accent);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:84px 0 56px;
+    border-bottom:1px solid var(--line-soft);
+    background:var(--bg-alt);
+  }
+  .hero h1{
+    margin-top:18px;
+    font-size:clamp(30px,5.4vw,52px);
+    line-height:1.08;
+    max-width:18ch;
+  }
+  .hero h1 em{color:var(--accent);font-style:normal;}
+  .hero p{
+    margin-top:22px;
+    max-width:60ch;
+    font-size:17px;
+    color:var(--text-dim);
+  }
+
+  section{padding:72px 0;}
+
+  /* ---------- SUPPORT CARDS ---------- */
+  .support-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:28px;
+  }
+  .support-card{
+    background:var(--card);
+    border:1px solid var(--line-soft);
+    padding:34px 30px;
+    display:flex;
+    flex-direction:column;
+  }
+  .support-card .tag{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--accent);
+  }
+  .support-card h2{
+    font-size:24px;
+    margin-top:14px;
+    max-width:20ch;
+  }
+  .support-card p{
+    margin-top:16px;
+    color:var(--text-dim);
+    font-size:15px;
+    flex-grow:1;
+  }
+  .support-card .fine{
+    margin-top:18px;
+    padding-top:16px;
+    border-top:1px solid var(--line-soft);
+    font-size:13px;
+    color:var(--text-mute);
+  }
+  .support-card .fine strong{color:var(--text-dim);}
+
+  .btn{
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    text-decoration:none;
+    padding:13px 22px;
+    border-radius:2px;
+    display:inline-block;
+    text-align:center;
+    transition:transform .18s ease, background .18s ease, border-color .18s ease;
+    margin-top:22px;
+  }
+  .btn-solid{background:var(--accent);color:#0A0A0A;font-weight:600;}
+  .btn-solid:hover{transform:translateY(-2px);}
+  .btn-ghost{border:1px solid var(--line);color:var(--text);background:none;}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* ---------- STATUS NOTE ---------- */
+  .status-note{
+    margin-top:40px;
+    padding:24px 28px;
+    background:#F5F5F5;
+    border:1px solid rgba(176,176,176,0.4);
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+  }
+  .status-note .dot{
+    flex:none;
+    width:9px;height:9px;
+    border-radius:50%;
+    background:var(--accent);
+    margin-top:6px;
+  }
+  .status-note p{margin:0;font-size:14.5px;color:var(--text-dim);max-width:62ch;}
+  .status-note p strong{color:var(--text);}
+
+  /* ---------- FORM ---------- */
+  .apply-head{margin-bottom:32px;}
+  .apply-head h2{font-size:clamp(24px,3.6vw,32px);}
+  .apply-head p{margin-top:12px;color:var(--text-dim);font-size:15px;max-width:60ch;}
+  .apply-form{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px 24px;
+    max-width:760px;
+  }
+  .field{display:flex;flex-direction:column;gap:8px;}
+  .field.full{grid-column:1 / -1;}
+  .field label{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--text-mute);
+  }
+  .field input,
+  .field select,
+  .field textarea{
+    font-family:var(--body);
+    font-size:15px;
+    color:var(--text);
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:2px;
+    padding:12px 14px;
+    width:100%;
+  }
+  .field textarea{resize:vertical;min-height:96px;}
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  .apply-fine{
+    grid-column:1 / -1;
+    margin-top:4px;
+    font-size:12.5px;
+    color:var(--text-mute);
+    max-width:60ch;
+  }
+  .apply-submit{grid-column:1 / -1;}
+  @media (max-width:600px){
+    .apply-form{grid-template-columns:1fr;}
+  }
+
+  /* ---------- INFO SECTION ---------- */
+  .info-head{
+    margin-bottom:36px;
+    border-bottom:1px solid var(--line-soft);
+    padding-bottom:20px;
+  }
+  .info-head h2{font-size:clamp(24px,3.6vw,32px);}
+  .info-head p{margin-top:12px;color:var(--text-dim);font-size:15px;max-width:62ch;}
+
+  .faq{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:28px 40px;
+  }
+  .faq-item{border-top:2px solid var(--accent);padding-top:16px;}
+  .faq-item h3{
+    font-family:var(--display);
+    font-weight:800;
+    text-transform:uppercase;
+    font-size:15.5px;
+    letter-spacing:0.02em;
+    margin-bottom:10px;
+  }
+  .faq-item p{margin:0;color:var(--text-dim);font-size:14.5px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:56px 0 40px;background:var(--bg-alt);border-top:1px solid var(--line-soft);}
+  .foot-inner{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .foot-inner a{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text-dim);
+    text-decoration:none;
+  }
+  .foot-inner a:hover{color:var(--accent);}
+  .foot-bottom{
+    margin-top:24px;
+    padding-top:20px;
+    border-top:1px solid var(--line-soft);
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--text-mute);
+  }
+
+  @media (max-width:860px){
+    .support-grid{grid-template-columns:1fr;}
+    .faq{grid-template-columns:1fr;}
+    section{padding:56px 0;}
+    .hero{padding:56px 0 44px;}
+  }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">MIND<span>·</span>PLANET</a>
+    <a class="back-link" href="index.html">← Volver al sitio</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Mind Planet — Apoya el programa</div>
+      <h1>Dos formas de sumarte: <em>donar</em> o <em>invertir</em>.</h1>
+      <p>Wild Ones se sostiene con alianzas científicas, equipo propio y, cada vez más, con gente que decide poner algo de su parte. Esta página explica cómo — todavía no hay un botón de pago activo; cada aporte se coordina por ahora de forma directa, por correo.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="support-grid">
+
+        <div class="support-card">
+          <span class="tag">Proyecto especial</span>
+          <h2>Dona a una producción puntual</h2>
+          <p>Para quienes quieren poner un aporte directo a un documental específico — sin esperar nada a cambio, más que ver la historia terminada y llegar a donde tiene que llegar. Así financiamos piezas que, por su alcance o riesgo (cuevas, nevados, expediciones largas), no entran en el presupuesto regular.</p>
+          <div class="fine"><strong>En este momento:</strong> estamos preparando la campaña dedicada para <em>Andes Cavernícolas</em>, nuestro documental de cuevas, en GoFundMe. Mientras se activa, puedes escribirnos y te avisamos primero cuando esté lista.</div>
+          <a class="btn btn-solid" href="#postular">Quiero donar</a>
+        </div>
+
+        <div class="support-card">
+          <span class="tag">Producción activa</span>
+          <h2>Invierte en una producción en curso</h2>
+          <p>Para personas o marcas que quieren participar del financiamiento de una producción que ya está en campo, con una conversación directa sobre alcance, tiempos y crédito en la pieza — no es una donación, es una forma de respaldar el trabajo mientras pasa.</p>
+          <div class="fine"><strong>Cómo funciona:</strong> cada conversación es distinta según el proyecto y el momento en que esté. Escríbenos contándonos qué te interesa y coordinamos una llamada.</div>
+          <a class="btn btn-ghost" href="#postular">Quiero invertir</a>
+        </div>
+
+      </div>
+
+      <div class="status-note">
+        <span class="dot"></span>
+        <p><strong>Esta página es informativa por ahora.</strong> No hay ningún procesador de pagos ni cuenta conectada aquí todavía — ni la vamos a improvisar. Cuando la campaña de GoFundMe para el documental de cuevas esté activa, el enlace real va a aparecer en este mismo lugar.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="postular">
+    <div class="wrap">
+      <div class="apply-head">
+        <h2>Cuéntanos tu aporte</h2>
+        <p>Llena este formulario corto y se abre tu correo con el mensaje listo para enviar a nuestro equipo. Te respondemos directamente para coordinar los detalles.</p>
+      </div>
+      <form class="apply-form" action="mailto:director@mindplanet.co?subject=Nuevo%20aporte%20-%20Mind%20Planet" method="POST" enctype="text/plain">
+        <div class="field full">
+          <label for="f-nombre">Nombre completo</label>
+          <input type="text" id="f-nombre" name="Nombre" required>
+        </div>
+        <div class="field full">
+          <label for="f-correo">Correo de contacto</label>
+          <input type="email" id="f-correo" name="Correo" required>
+        </div>
+        <div class="field full">
+          <label for="f-proyecto">Proyecto</label>
+          <select id="f-proyecto" name="Proyecto">
+            <option value="Andes Cavernícolas (documental de cuevas)">Andes Cavernícolas (documental de cuevas)</option>
+            <option value="Con los Pies en el Cielo">Con los Pies en el Cielo</option>
+            <option value="Mensajes en la Piedra">Mensajes en la Piedra</option>
+            <option value="La Última Cueva de Hielo">La Última Cueva de Hielo</option>
+            <option value="Aún no decido / quiero conversarlo">Aún no decido / quiero conversarlo</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="f-aporte">¿Qué aporte te gustaría hacer?</label>
+          <textarea id="f-aporte" name="Aporte" placeholder="Ej: una donación puntual, invertir en la producción, equipo técnico, tiempo o algo distinto." required></textarea>
+        </div>
+        <p class="apply-fine">Al enviar, tu navegador va a abrir tu aplicación de correo con este mensaje ya redactado, listo para mandarlo a director@mindplanet.co.</p>
+        <button type="submit" class="btn btn-solid apply-submit">Enviar mi propuesta</button>
+      </form>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="info-head">
+        <h2>Antes de escribirnos</h2>
+        <p>Algunas respuestas rápidas a lo que probablemente te preguntes.</p>
+      </div>
+      <div class="faq">
+        <div class="faq-item">
+          <h3>¿Puedo donar ya mismo?</h3>
+          <p>No por aquí todavía. Escríbenos y, si quieres apoyar el documental de cuevas, te avisamos en cuanto abra la campaña en GoFundMe.</p>
+        </div>
+        <div class="faq-item">
+          <h3>¿La donación es deducible de impuestos?</h3>
+          <p>Depende de la figura legal con la que termine operando cada campaña. Lo aclaramos caso por caso cuando conversemos.</p>
+        </div>
+        <div class="faq-item">
+          <h3>¿Qué recibo si invierto?</h3>
+          <p>No es una inversión financiera con retorno garantizado — es un respaldo a una producción real, con crédito visible en la pieza y acceso directo al equipo. Los términos se acuerdan por caso.</p>
+        </div>
+        <div class="faq-item">
+          <h3>¿Puedo donar para algo distinto a cuevas?</h3>
+          <p>Sí. Cuéntanos qué proyecto te interesa — páramos, nevados, arrecifes de roca — y vemos qué está activo o próximo a abrir.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contacto">
+    <div class="wrap">
+      <div class="foot-inner">
+        <span class="eyebrow" style="margin:0;">Mind Planet — Apoya el programa</span>
+        <a href="mailto:director@mindplanet.co">director@mindplanet.co</a>
+      </div>
+      <div class="foot-bottom">
+        © 2026 Mind Planet. Página informativa — sin procesamiento de pagos activo.
+      </div>
+    </div>
+  </footer>
+</main>
