@@ -672,6 +672,44 @@
   }
   .citizen-cta p strong{color:var(--text);}
 
+  /* ---------- CAMPAMENTO ABIERTO — FORM ---------- */
+  .camp-form{
+    margin-top:28px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px 20px;
+    max-width:720px;
+  }
+  .camp-form .field{display:flex;flex-direction:column;gap:8px;}
+  .camp-form .field.full{grid-column:1 / -1;}
+  .camp-form .field label{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--text-mute);
+  }
+  .camp-form .field input,
+  .camp-form .field select,
+  .camp-form .field textarea{
+    font-family:var(--body);
+    font-size:15px;
+    color:var(--text);
+    background:#FFFFFF;
+    border:1px solid var(--line);
+    border-radius:2px;
+    padding:11px 13px;
+    width:100%;
+  }
+  .camp-form .field textarea{resize:vertical;min-height:84px;}
+  .camp-form .field input:focus,
+  .camp-form .field select:focus,
+  .camp-form .field textarea:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  .camp-form-submit{grid-column:1 / -1;}
+  @media (max-width:600px){
+    .camp-form{grid-template-columns:1fr;}
+  }
+
   /* contact / footer */
   footer{
     padding:80px 0 40px;
@@ -817,7 +855,7 @@
       <p class="hero-sub">Mind Planet filma donde la ciencia todavía está tomando notas: cuevas, arrecifes de roca, páramos y nevados.</p>
       <div class="hero-actions">
         <a class="btn btn-solid" href="#proyectos">Ver Wild Ones</a>
-        <a class="btn btn-outline" href="#mision">Nuestro compromiso</a>
+        <a class="btn btn-outline" href="#ciencia-ciudadana">Campamento Abierto</a>
       </div>
     </div>
   </section>
@@ -953,9 +991,32 @@
         </div>
       </div>
 
-      <div class="citizen-cta reveal">
-        <p><strong>Primeros cupos abren pronto.</strong> Escríbenos si quieres que te avisemos apenas se confirme la primera salida.</p>
-        <a class="btn btn-solid" href="mailto:director@mindplanet.co?subject=Quiero%20sumarme%20a%20una%20expedici%C3%B3n%20de%20ciencia%20ciudadana">Quiero postularme</a>
+      <div class="citizen-cta reveal" style="display:block;">
+        <p><strong>Primeros cupos abren pronto.</strong> Cuéntanos qué te interesa y te respondemos apenas se confirme la salida que te queda.</p>
+        <form class="camp-form" action="mailto:director@mindplanet.co?subject=Quiero%20sumarme%20a%20Campamento%20Abierto" method="POST" enctype="text/plain">
+          <div class="field">
+            <label for="camp-nombre">Nombre completo</label>
+            <input type="text" id="camp-nombre" name="Nombre" required>
+          </div>
+          <div class="field">
+            <label for="camp-correo">Correo de contacto</label>
+            <input type="email" id="camp-correo" name="Correo" required>
+          </div>
+          <div class="field full">
+            <label for="camp-expedicion">¿Qué expedición te interesa?</label>
+            <select id="camp-expedicion" name="Expedición">
+              <option value="Cuevas andinas (Andes Cavernícolas)">Cuevas andinas (Andes Cavernícolas)</option>
+              <option value="Arte rupestre (Mensajes en la Piedra)">Arte rupestre (Mensajes en la Piedra)</option>
+              <option value="Glaciar en retroceso (La Última Cueva de Hielo)">Glaciar en retroceso (La Última Cueva de Hielo)</option>
+              <option value="Cualquiera, avísenme cuando haya cupo">Cualquiera, avísenme cuando haya cupo</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="camp-mensaje">¿Qué te gustaría saber antes de postularte?</label>
+            <textarea id="camp-mensaje" name="Mensaje" placeholder="Fechas, experiencia previa, nivel físico que se requiere, lo que quieras preguntarnos..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-solid camp-form-submit">Quiero postularme</button>
+        </form>
       </div>
     </div>
   </section>
@@ -976,7 +1037,8 @@
           <div>
             <span class="label">Súmate</span>
             <a href="apoya.html">Apoya este programa</a><br>
-            <a href="trabaja-con-nosotros.html">Trabaja con nosotros</a>
+            <a href="trabaja-con-nosotros.html">Trabaja con nosotros</a><br>
+            <a href="equipo.html">Conoce el equipo</a>
           </div>
           <div>
             <span class="label">Blog</span>
